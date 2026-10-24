@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: theme('colors.canvas');
+  color: theme('colors.ink.DEFAULT');
+  font-family: theme('fontFamily.sans');
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: theme('colors.accent.DEFAULT');
+  color: #fff;
+}
+
+/* Calm scrollbars */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: theme('colors.line.strong');
+  border-radius: 5px;
+  border: 2px solid theme('colors.canvas');
+}
+
+/* Scores & numeric columns use tabular figures */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Visible, consistent keyboard focus */
+:where(a, button, input, textarea, [tabindex]):focus-visible {
+  outline: 2px solid theme('colors.accent.DEFAULT');
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Success/failure reveal for the verdict section — the only non-user motion */
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  animation: reveal-up 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
